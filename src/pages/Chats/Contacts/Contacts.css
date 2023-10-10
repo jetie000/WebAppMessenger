@@ -1,0 +1,35 @@
+.contact-link{
+    cursor: pointer;
+}
+
+.addContacts-input{
+    box-shadow: 0 0 0 0 !important;
+}
+
+.addContact-list{
+    max-height: 298px;
+}
+
+.contacts-list{
+    max-height: 335.6px;
+}
+
+.addContact-addButton{
+    width: 35px;
+    height: 35px;
+}
+
+.profile-img{
+    width: 120px;
+    height: 120px;
+}
+
+.file-upload input{
+    display: none;
+}
+
+#photoFileName{
+    width:140px;
+    text-align: center;
+    
+}

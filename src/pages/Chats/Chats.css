@@ -1,0 +1,68 @@
+.main-window{
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* ChatsMenu */
+
+.menu{
+    width: 70px;
+}
+
+.menu-button{
+    width: 60px;
+    height: 60px;
+}
+
+.menu-button h3{
+    margin-bottom: 0;
+}
+
+@media (min-width: 576px){}
+.modal-sm {
+    --bs-modal-width: 350px;
+}
+
+/* ChatsChats */
+
+.chats{
+    width: 370px;
+}
+
+.chats-chat{
+    padding: 8px;
+    cursor: pointer;
+}
+
+.chats-chat-img{
+    width: 50px;
+    height: 50px;
+}
+
+.chats-chat-name{
+    width: 185px;
+}
+
+.chats-chat-msg{
+    width: 275px;
+}
+
+/* ChatsChat */
+
+.chat-header{
+    max-height: 63px;
+}
+.chat-msg-img{
+    width: 40px!important;
+    height: 40px!important;
+}
+
+.chat-msg-msg{
+    max-width: 500px;
+}
+
+.chat-input{
+    max-height: 63px;
+}

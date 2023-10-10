@@ -1,0 +1,11 @@
+.main-window{
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.inner-window{
+    width: 400px;
+    margin: auto;
+}
