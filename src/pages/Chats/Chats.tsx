@@ -21,7 +21,7 @@ function Chats() {
     const joinRoom = async (userIdCon: string) => {
         try {
             const connection = new HubConnectionBuilder()
-                .withUrl('ws://jetie000-001-site1.ctempurl.com/chat-hub')
+                .withUrl('wss://jetie000-001-site1.ctempurl.com/chat-hub')
                 .configureLogging(LogLevel.Information)
                 .build();
             connection.on("JoinMessage", (message) => {
