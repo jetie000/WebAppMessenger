@@ -4,7 +4,7 @@ import ChatsChat from "./ChatsChat";
 import { useUserStore } from "../../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import './Chats.css';
-import { HubConnection, HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import { HttpTransportType, HubConnection, HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { useEffect, useState } from "react";
 import { useInvitesStore } from "../../stores/invitesStore";
 import { IInvite } from "../../types/invites.interface";
@@ -21,7 +21,12 @@ function Chats() {
     const joinRoom = async (userIdCon: string) => {
         try {
             const connection = new HubConnectionBuilder()
-                .withUrl('wss://jetie000-001-site1.ctempurl.com/chat-hub')
+                .withUrl('wss://jetie000-001-site1.ctempurl.com/chat-hub', {
+                    skipNegotiation: true,
+                    transport: HttpTransportType.WebSockets
+                  }
+                )
+                .withAutomaticReconnect()
                 .configureLogging(LogLevel.Information)
                 .build();
             connection.on("JoinMessage", (message) => {
