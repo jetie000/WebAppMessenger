@@ -1,7 +1,6 @@
 {
   "name": "messenger-net-app",
   "version": "0.1.0",
-  "homepage": "https://jetie000.github.io/WebAppMessenger",
   "private": true,
   "dependencies": {
     "@microsoft/signalr": "^7.0.11",
