@@ -46,7 +46,7 @@ function ChatsChat({connection}: {connection: HubConnection}) {
         }
         let dateCon =(new Date()).toDateString();
         setMessages({
-            "id" : messages[0].id + 1,
+            "id" : messages[0].id + 1 || 0,
             "message" : input.value || '',
             "idSend" : user.id,
             "idGet" : currentUser.id,
