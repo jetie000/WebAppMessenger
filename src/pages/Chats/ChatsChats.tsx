@@ -11,7 +11,7 @@ function ChatsChats() {
     const user = useUserStore(state => state.user);
     let users = useMessagesStore(state => state.users);
     let setCurrentUser = useMessagesStore(state => state.setCurrentUser);
-    let setChats = useMessagesStore(state => state.setChats);
+    let setSearchChats = useMessagesStore(state => state.setSearchChats);
     let searchChats = useMessagesStore(state => state.searchChats);
 
     useEffect(() => {
@@ -20,14 +20,14 @@ function ChatsChats() {
 
     const searchChatsFunc = () =>{
         const input: HTMLInputElement = document.querySelector('#search')!;
-        setChats(input.value);
+        setSearchChats(input.value);
         console.log(input.value);
     }
 
     const clearInput = () => {
         const input: HTMLInputElement = document.querySelector('#search')!;
         input.value = '';
-        setChats(input.value);
+        setSearchChats(input.value);
     }
 
     const sendKeyEnter = (event: any) => {
@@ -38,7 +38,7 @@ function ChatsChats() {
     }
 
     return (
-        <div className="auto-fill border p-2">
+        <div className="auto-fill border p-2 overflow-auto">
             <div className="input-group mb-3 mt-2">
                 <input id="search" type="text" className="form-control" onKeyDown={sendKeyEnter} placeholder="Поиск" aria-label="Find" aria-describedby="button-addon2" />
                 <button className="btn btn-outline-secondary" onClick={clearInput} type="button" id="button-addon2"><i className="bi bi-x-lg"></i></button>
@@ -49,7 +49,7 @@ function ChatsChats() {
                     <li key={chat.id}
                         onClick={() => { setCurrentUser(users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend)))}}
                         className="list-group-item d-flex flex-row chats-chat">
-                        <img className=" rounded-circle chats-chat-img" src={variables.PHOTO_URL + users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))?.photoFileName} alt={user && user.login[0]} />
+                        <img className=" rounded-circle chats-chat-img" src={variables.PHOTO_URL + users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))?.photoFileName} alt={users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))?.name[0]} />
                         <div className="d-flex flex-column ms-2 flex-fill">
                             <div className="d-flex flex-row justify-content-between">
                                 <span className="text-truncate chats-chat-name">{users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))?.name}</span>

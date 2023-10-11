@@ -47,6 +47,7 @@ export const useUserStore = create<UserState>((set, get) => ({
         localStorage.removeItem(variables.$LOCAL_USER);
         localStorage.removeItem(variables.$CHOSEN_USER);
         var date = new Date();
+        console.log(new Date());
         fetch(variables.API_URL+'/user', {
             method:'PUT',
             headers:{
@@ -58,7 +59,7 @@ export const useUserStore = create<UserState>((set, get) => ({
                 "Login": get().user.login,
                 "Password": get().user.password,
                 "Name": get().user.name,
-                "LeaveDate" : date,
+                "LeaveDate" : new Date(),
                 "JoinDate": get().user.joinDate,
                 "IsOnline": false,
                 "PhotoFileName": get().user.photoFileName

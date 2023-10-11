@@ -50,16 +50,29 @@ function Register() {
             modalBody!.textContent = "Введите данные";
             return;
         }
-        await setData(inputLogin);
+        try{
+            await setData(inputLogin);
+        }
+        catch(e){
+            modalTitle!.textContent = "Ошибка";
+            modalBody!.textContent = e as string;
+            return;
+        }
         if (isUserExist == "yes") {
-            console.log('Такой есть в бд');
             modalTitle!.textContent = "Ошибка";
             modalBody!.textContent = "Такой логин существует";
         }
         else {
+            try{
+                createUser(inputLogin.trim(), inputPassword.trim(), inputName.trim(), inputSurname.trim());
+            }
+            catch(e){
+                modalTitle!.textContent = "Ошибка";
+                modalBody!.textContent = e as string;
+                return;
+            }
             modalTitle!.textContent = "Успешно!";
             modalBody!.textContent = "Вы успешно Зарегистрированы!";
-            createUser(inputLogin, inputPassword, inputName, inputSurname)
         }
     }
 

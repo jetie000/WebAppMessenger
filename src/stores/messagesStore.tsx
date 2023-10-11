@@ -14,8 +14,9 @@ interface MessagesState {
     isChats: boolean
     setMessagesChats: (userId: number) => void
     setCurrentUser: (data: any) => void
-    setMessages: (data: IMessage) => void
-    setChats: (data:string) => void
+    setMessage: (data: IMessage) => void
+    setSearchChats: (data:string) => void
+    setChat: (data: IMessage) => void
 }
 
 export const useMessagesStore = create<MessagesState>((set, get) => ({
@@ -75,14 +76,23 @@ export const useMessagesStore = create<MessagesState>((set, get) => ({
             localStorage.setItem(variables.$CHOSEN_USER, JSON.stringify(data));
         }
     },
-    setMessages: (data: IMessage) => {
+    setMessage: (data: IMessage) => {
+        console.log('SETTING STATE');
+        console.log(data);
+        
         set((state) => ({
             messages: [ data, ...state.messages]
         }))
     },
-    setChats: (data:string) => {
+    setChat: (data: IMessage) => {
+        console.log('SETTING STATE');
+        set((state) => ({
+            chats: [ data, ...state.chats]
+        }))
+    },
+    setSearchChats: (data:string) => {
         set({
-            searchChats: get().chats.filter(chat => get().users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))?.name.toLowerCase().includes(data.toLowerCase()) )
+            searchChats: get().chats.filter(chat => get().users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))?.name.toLowerCase().includes(data.trim().toLowerCase()) )
         })
     }
 }))

@@ -8,7 +8,7 @@ function Profile() {
     let photoUserFileName = user != null ? user.photoFileName : 'default.png';
 
     const saveChanges = async () => {
-        let name = (document.getElementById('inputNameProfile') as HTMLInputElement).value.concat(' ').concat((document.getElementById('inputSurnameProfile') as HTMLInputElement).value);
+        let name = (document.getElementById('inputNameProfile') as HTMLInputElement).value.trim().concat(' ').concat((document.getElementById('inputSurnameProfile') as HTMLInputElement).value.trim());
 
         await fetch(variables.API_URL + '/user', {
             method: 'PUT',
@@ -29,8 +29,8 @@ function Profile() {
         })
         setUser({
             id: user.id,
-            login: (document.getElementById('inputLoginProfile') as HTMLInputElement).value,
-            password: (document.getElementById('inputPasswordProfile') as HTMLInputElement).value,
+            login: (document.getElementById('inputLoginProfile') as HTMLInputElement).value.trim(),
+            password: (document.getElementById('inputPasswordProfile') as HTMLInputElement).value.trim(),
             name: name,
             leaveDate: user.leaveDate,
             joinDate: user.joinDate,

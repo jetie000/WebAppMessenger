@@ -5,68 +5,75 @@ import React from "react";
 import { IMessage } from "../../types/message.interface";
 import { HubConnection } from "@microsoft/signalr";
 
-function ChatsChat({connection}: {connection: HubConnection}) {
+function ChatsChat({ connection }: { connection: HubConnection }) {
 
     let messages = useMessagesStore(state => state.messages);
     const user = useUserStore(state => state.user);
     let currentUser = useMessagesStore(state => state.currentUser);
     let users = useMessagesStore(state => state.users);
+    let setMessage = useMessagesStore(state => state.setMessage);
+    let setChat = useMessagesStore(state => state.setMessage);
     let chats = useMessagesStore(state => state.chats);
-    let setMessages = useMessagesStore(state => state.setMessages);
     let setMessagesChats = useMessagesStore(state => state.setMessagesChats);
-    let currentUserMessages : IMessage[] = currentUser ? messages.filter(message => (message.idGet === user.id && message.idSend === currentUser.id) || (message.idSend === user.id && message.idGet === currentUser.id)) : [];
-    
-    const sendMessage = async () => {
+    let setSearchChats = useMessagesStore(state => state.setSearchChats);
+    let currentUserMessages: IMessage[] = currentUser ? messages.filter(message => (message.idGet === user.id && message.idSend === currentUser.id) || (message.idSend === user.id && message.idGet === currentUser.id)) : [];
+
+    const sendMessage = () => {
         const input: HTMLInputElement = document.querySelector('#send')!;
-        if (input.value == ""){
+        if (input.value.trim() == "") {
             return;
         }
         try {
             console.log(JSON.stringify({
-                "Msg" : input?.value || '',
-                "IdSend" : user.id,
-                "IdGet" : currentUser.id,
-                "date": new Date()
+                "Msg": input?.value || '',
+                "IdSend": user.id,
+                "IdGet": currentUser.id,
+                "date": new Date(Date.now()).toLocaleString()
             }));
-            await fetch(variables.API_URL+'/message', {
-            method:'POST',
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({
-                "Msg" : input?.value || '',
-                "IdSend" : user.id,
-                "IdGet" : currentUser.id,
-                "date": new Date()
-            })
+            fetch(variables.API_URL + '/message', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "Msg": input?.value.trim() || '',
+                    "IdSend": user.id,
+                    "IdGet": currentUser.id,
+                    "date": (new Date(Date.now() + 3600000 * 3))
+                })
             })
         } catch (error) {
             alert(error);
         }
-        let dateCon =(new Date()).toDateString();
-        setMessages({
-            "id" : messages[0].id + 1 || 0,
-            "message" : input.value || '',
-            "idSend" : user.id,
-            "idGet" : currentUser.id,
+        let dateCon =new Date(Date.now()).toString();
+        setMessage({
+            "id": (messages[0].id + 1) || 0,
+            "message": input.value || '',
+            "idSend": user.id,
+            "idGet": currentUser.id,
             "date": dateCon
         })
-        let userIdCon = user.id.toString();
-        let roomIdCon = user.id < currentUser.id ? user.id + ' '+ currentUser.id :  currentUser.id + ' '+ user.id;
-        
-        let messageCon = input.value;
-        connection.invoke("SendMessage", { userIdCon, roomIdCon, messageCon , dateCon});
-        input.value = "";
-        if (!users.find(user => user.id == currentUser.id)){
-            setMessagesChats(user.id);
+        if (!chats.find(chat => (chat.idGet == currentUser.id || chat.idSend == currentUser.id))){
+            setChat({
+                "id": (chats[0].id + 1) || 0,
+                "message": input.value || '',
+                "idSend": user.id,
+                "idGet": user.id,
+                "date": dateCon
+            })
         }
-        
+        setSearchChats("");
+        let userIdCon = user.id.toString();
+        let roomIdCon = user.id < currentUser.id ? user.id + ' ' + currentUser.id : currentUser.id + ' ' + user.id;
+        let messageCon = input.value;
+        connection.invoke("SendMessage", { userIdCon, roomIdCon, messageCon, dateCon });
+        input.value = "";
+
     }
 
     const sendKeyEnter = (event: any) => {
-        if (event.key == 'Enter')
-        {
+        if (event.key == 'Enter') {
             sendMessage();
         }
     }
@@ -93,11 +100,17 @@ function ChatsChat({connection}: {connection: HubConnection}) {
                         </div>
                     </div>
                     <div className="d-flex flex-column-reverse flex-fill p-1 ps-3 pe-3 overflow-auto">
-                        {currentUserMessages?.length ? (currentUserMessages.map(msg => (
-                            <div className="d-flex mt-2 " key={msg.id}>
-                                <img className="border rounded-circle me-2 align-self-end chat-msg-img flex-shrink-0" src={variables.PHOTO_URL + (msg.idSend == user.id ? user.photoFileName : currentUser.photoFileName)} alt={ msg.idSend == user.id ? user.name[0] : currentUser.name[0]} />
-                                <div className="border rounded p-2 text-break chat-msg-msg">
-                                    {msg.message}
+                        {currentUserMessages?.length ? (currentUserMessages.map((msg, index) => (
+                            <div key={msg.id}>
+                                {(new Date(currentUserMessages[index].date).toLocaleDateString() != new Date(currentUserMessages[index + 1]?.date).toLocaleDateString()) &&
+                                <div className="m-2 chat-msg-msg text-center">{new Date(currentUserMessages[index].date).toLocaleDateString()}</div>
+                                } 
+                                <div className="d-flex mt-2 " >
+                                    <img className="border rounded-circle me-2 align-self-end chat-msg-img flex-shrink-0" src={variables.PHOTO_URL + (msg.idSend == user.id ? user.photoFileName : currentUser.photoFileName)} alt={msg.idSend == user.id ? user.name[0] : currentUser.name[0]} />
+                                    <div className="border rounded p-2 text-break chat-msg-msg">
+                                        {msg.message}
+                                    </div>
+                                    <span className="align-self-end ms-2">{new Date(msg.date).toLocaleString().slice(12, 17)}</span>
                                 </div>
                             </div>
                         ))) : <h3 className="border rounded p-4">Нет сообщений</h3>}

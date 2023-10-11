@@ -54,7 +54,8 @@ function Modal({ id, componentName }: { id: string, componentName: string }) {
                                 <Requests />) :
                             (componentName == 'AddContact' ?
                                 <AddContact /> :
-                                <Profile />)}
+                                ( componentName == 'Profile' ?
+                                <Profile /> : <></>))}
                     </div>
                 </div>
             </div>
