@@ -4,17 +4,18 @@ import { Link, Navigate } from 'react-router-dom';
 import { useUserStore } from '../../stores/userStore';
 import './Home.css'
 
-function Home({isLogin}:{isLogin: boolean}) {
+function Home({ isLogin }: { isLogin: boolean }) {
   const loggedIn = useUserStore(state => state.loggedIn);
-  if (loggedIn() == true){
-    return (<Navigate to='/chats'/>)
+
+  if (loggedIn() == true) {
+    return (<Navigate to='/chats' />)
   }
 
   let form;
   if (isLogin)
-    form = <Login/>;
+    form = <Login />;
   else
-    form = <Register/>
+    form = <Register />
 
   return (
     <div className="position-absolute d-flex main-window" >

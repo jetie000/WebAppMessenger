@@ -46,7 +46,7 @@ function ChatsChat({ connection }: { connection: HubConnection }) {
         } catch (error) {
             alert(error);
         }
-        let dateCon =new Date(Date.now()).toString();
+        let dateCon = new Date(Date.now()).toString();
         setMessage({
             "id": (messages[0].id + 1) || 0,
             "message": input.value || '',
@@ -54,7 +54,7 @@ function ChatsChat({ connection }: { connection: HubConnection }) {
             "idGet": currentUser.id,
             "date": dateCon
         })
-        if (!chats.find(chat => (chat.idGet == currentUser.id || chat.idSend == currentUser.id))){
+        if (!chats.find(chat => (chat.idGet == currentUser.id || chat.idSend == currentUser.id))) {
             setChat({
                 "id": (chats[0].id + 1) || 0,
                 "message": input.value || '',
@@ -78,12 +78,26 @@ function ChatsChat({ connection }: { connection: HubConnection }) {
         }
     }
 
+    const toogleChat = () => {
+        const chat = document.querySelector('.chat');
+        if(chat?.classList.contains('chat-show'))
+            chat.classList.remove('chat-show')
+        else
+            chat?.classList.add('chat-show')
+    }
+    
     return (
         <>
             {currentUser ?
-                <div className="d-flex flex-column border flex-fill">
+                <div className="d-flex flex-column border flex-fill chat">
                     <div className="d-flex flex-row flex-fill border-bottom p-1 ps-3 chat-header">
-                        <div className="d-flex">
+                        <div className="d-flex gap-3">
+                            <button
+                                id="toogleChatButton"
+                                className="border-0 text-center fs-3"
+                                onClick={toogleChat}>
+                                <i className="bi bi-arrow-left"></i>
+                            </button>
                             <div className="d-flex flex-column">
                                 <div className="fs-5">
                                     {currentUser.name}
@@ -103,8 +117,8 @@ function ChatsChat({ connection }: { connection: HubConnection }) {
                         {currentUserMessages?.length ? (currentUserMessages.map((msg, index) => (
                             <div key={msg.id}>
                                 {(new Date(currentUserMessages[index].date).toLocaleDateString() != new Date(currentUserMessages[index + 1]?.date).toLocaleDateString()) &&
-                                <div className="m-2 chat-msg-msg text-center">{new Date(currentUserMessages[index].date).toLocaleDateString()}</div>
-                                } 
+                                    <div className="m-2 chat-msg-msg text-center">{new Date(currentUserMessages[index].date).toLocaleDateString()}</div>
+                                }
                                 <div className="d-flex mt-2 " >
                                     <img className="border rounded-circle me-2 align-self-end chat-msg-img flex-shrink-0" src={variables.PHOTO_URL + (msg.idSend == user.id ? user.photoFileName : currentUser.photoFileName)} alt={msg.idSend == user.id ? user.name[0] : currentUser.name[0]} />
                                     <div className="border rounded p-2 text-break chat-msg-msg">

@@ -28,7 +28,7 @@ function ChatsMenu() {
     const showProfile = () => {
         const myModal = document.getElementById('chatsModal');
         let modalTitle = myModal?.querySelector('.modal-title');
-        modalTitle!.textContent = 'Мой профиль';myModal?.querySelector('.modal-body')?.setAttribute('style', 'padding: 0');
+        modalTitle!.textContent = 'Мой профиль'; myModal?.querySelector('.modal-body')?.setAttribute('style', 'padding: 0');
         myModal?.querySelector('.modal-content')?.setAttribute('style', 'height: 400px;');
         setComponentModalName('Profile');
     }
@@ -50,7 +50,17 @@ function ChatsMenu() {
         myModal?.querySelector('.modal-content')?.setAttribute('style', 'height: 400px;');
         setComponentModalName('AddContact');
     }
+
+    const toggleChats = () => {
+        const chats = document.querySelector('.chats');
+        if(chats?.classList.contains('chats-show'))
+            chats.classList.remove('chats-show')
+        else
+            chats?.classList.add('chats-show')
+    }
+    
     return (
+        <>
         <div className=" d-flex flex-column border p-1 menu">
             <button className="border rounded-circle text-center menu-button mb-2 p-0"
                 data-bs-toggle="modal"
@@ -66,17 +76,25 @@ function ChatsMenu() {
                 <h3><i className="bi bi-person-lines-fill"></i></h3>
             </button>
             <button
-                className="border rounded-circle text-center mb-auto menu-button"
+                id="addContactButton"
+                className="border rounded-circle text-center menu-button"
                 data-bs-toggle="modal"
                 data-bs-target="#chatsModal"
                 onClick={showAddContacts}>
                 <h3><i className="bi bi-person-plus-fill"></i></h3>
             </button>
+            <button
+                id="toogleChatsButton"
+                className="border rounded-circle text-center mb-auto menu-button"
+                onClick={toggleChats}>
+                <h3><i className="bi bi-list"></i></h3>
+            </button>
             <button onClick={() => { logout(); navigate('/') }} className="border rounded-circle text-center menu-button">
                 <h3><i className="bi bi-box-arrow-left"></i></h3>
             </button>
-            <Modal id='chatsModal' componentName={componentModalName}/>
-        </div>
+            </div>
+            <Modal id='chatsModal' componentName={componentModalName} />
+        </>
     );
 }
 

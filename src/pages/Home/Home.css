@@ -9,3 +9,9 @@
     width: 400px;
     margin: auto;
 }
+
+#vk-auth{
+    width: 50px !important;
+    height: 50px !important;
+    background-color: blue !important;
+}

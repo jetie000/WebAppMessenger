@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import './Chats.css';
 import { HttpTransportType, HubConnection, HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { useEffect, useState } from "react";
-import { useInvitesStore } from "../../stores/invitesStore";
-import { IInvite } from "../../types/invites.interface";
 import { useMessagesStore } from "../../stores/messagesStore";
 import { variables } from "../../Variables";
 

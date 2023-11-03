@@ -95,7 +95,6 @@ function Register() {
                     <label htmlFor="inputPassword">Пароль</label>
                     <input type="password" className="form-control" id="inputPassword" placeholder="Введите пароль" />
                 </div>
-
                 <button type="button"
                     className="btn btn-primary mt-3 w-100"
                     data-bs-toggle="modal"

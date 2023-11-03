@@ -37,8 +37,24 @@ function ChatsChats() {
         }
     }
 
+    const toggleChats = () => {
+        const chats = document.querySelector('.chats');
+        if(chats?.classList.contains('chats-show'))
+            chats.classList.remove('chats-show')
+        else
+            chats?.classList.add('chats-show')
+    }
+
+    const toogleChat = () => {
+        const chat = document.querySelector('.chat');
+        if(chat?.classList.contains('chat-show'))
+            chat.classList.remove('chat-show')
+        else
+            chat?.classList.add('chat-show')
+    }
+
     return (
-        <div className="auto-fill border p-2 overflow-auto">
+        <div className="auto-fill border p-2 overflow-auto chats">
             <div className="input-group mb-3 mt-2">
                 <input id="search" type="text" className="form-control" onKeyDown={sendKeyEnter} placeholder="Поиск" aria-label="Find" aria-describedby="button-addon2" />
                 <button className="btn btn-outline-secondary" onClick={clearInput} type="button" id="button-addon2"><i className="bi bi-x-lg"></i></button>
@@ -47,7 +63,7 @@ function ChatsChats() {
             <ul className="list-group">
                 {searchChats.length ? (searchChats.map(chat => (
                     <li key={chat.id}
-                        onClick={() => { setCurrentUser(users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend)))}}
+                        onClick={() => { setCurrentUser(users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))); toggleChats(); toogleChat();}}
                         className="list-group-item d-flex flex-row chats-chat">
                         <img className=" rounded-circle chats-chat-img" src={variables.PHOTO_URL + users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))?.photoFileName} alt={users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))?.name[0]} />
                         <div className="d-flex flex-column ms-2 flex-fill">
