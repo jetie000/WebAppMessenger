@@ -10,8 +10,9 @@
     margin: auto;
 }
 
-#vk-auth{
-    width: 50px !important;
-    height: 50px !important;
-    background-color: blue !important;
+@media (max-width:500px) {
+    .inner-window{
+        padding: 20px !important;
+        margin: auto 20px;
+    }
 }

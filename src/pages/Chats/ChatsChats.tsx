@@ -45,14 +45,6 @@ function ChatsChats() {
             chats?.classList.add('chats-show')
     }
 
-    const toogleChat = () => {
-        const chat = document.querySelector('.chat');
-        if(chat?.classList.contains('chat-show'))
-            chat.classList.remove('chat-show')
-        else
-            chat?.classList.add('chat-show')
-    }
-
     return (
         <div className="auto-fill border p-2 overflow-auto chats">
             <div className="input-group mb-3 mt-2">
@@ -63,7 +55,7 @@ function ChatsChats() {
             <ul className="list-group">
                 {searchChats.length ? (searchChats.map(chat => (
                     <li key={chat.id}
-                        onClick={() => { setCurrentUser(users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))); toggleChats(); toogleChat();}}
+                        onClick={() => { setCurrentUser(users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))); toggleChats(); variables.toogleChat();}}
                         className="list-group-item d-flex flex-row chats-chat">
                         <img className=" rounded-circle chats-chat-img" src={variables.PHOTO_URL + users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))?.photoFileName} alt={users.find(user => (user.id === chat.idGet) || (user.id === chat.idSend))?.name[0]} />
                         <div className="d-flex flex-column ms-2 flex-fill">

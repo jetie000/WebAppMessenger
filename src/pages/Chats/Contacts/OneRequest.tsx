@@ -22,7 +22,7 @@ function OneRequest({ contact, iconName, buttonFunc }: { contact: ICurrentUser, 
             data-bs-toggle="modal"
             data-bs-target="#chatsModal"
             className="btn btn-outline-secondary addContact-addButton p-0 pt-1 me-1"
-            onClick={() => setCurrentUser(contact)}>
+            onClick={() => {setCurrentUser(contact); variables.toogleChat()}}>
             <h4>
                 <i id={"sendButtonIcon" + contact.id} className="bi bi-send"></i>
             </h4>

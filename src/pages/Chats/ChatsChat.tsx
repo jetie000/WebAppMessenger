@@ -78,14 +78,6 @@ function ChatsChat({ connection }: { connection: HubConnection }) {
         }
     }
 
-    const toogleChat = () => {
-        const chat = document.querySelector('.chat');
-        if(chat?.classList.contains('chat-show'))
-            chat.classList.remove('chat-show')
-        else
-            chat?.classList.add('chat-show')
-    }
-    
     return (
         <>
             {currentUser ?
@@ -95,7 +87,7 @@ function ChatsChat({ connection }: { connection: HubConnection }) {
                             <button
                                 id="toogleChatButton"
                                 className="border-0 text-center fs-3"
-                                onClick={toogleChat}>
+                                onClick={variables.toogleChat}>
                                 <i className="bi bi-arrow-left"></i>
                             </button>
                             <div className="d-flex flex-column">
@@ -137,7 +129,7 @@ function ChatsChat({ connection }: { connection: HubConnection }) {
                     </div>
                 </div>
                 :
-                <div className="p-5 text-center">
+                <div className="d-flex flex-column border flex-fill chat p-5 text-center">
                     <h3 className="border rounded p-4">Выберите чат для начала общения</h3>
                 </div>
             }

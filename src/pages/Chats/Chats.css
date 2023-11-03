@@ -193,3 +193,14 @@
     }
 
 }
+
+@media (max-width:300px) {
+
+    .chats-chat-name {
+        width: 40px;
+    }
+
+    .chats-chat-msg {
+        width: 120px;
+    }
+}

@@ -7,4 +7,11 @@ export const variables={
     // SOCKET_URL : "ws://localhost:7220/chat-hub",
     $LOCAL_USER: "user_local",
     $CHOSEN_USER: "user_chosen",
+    toogleChat: () => {
+        const chat = document.querySelector('.chat');
+        if(chat?.classList.contains('chat-show'))
+            chat.classList.remove('chat-show')
+        else
+            chat?.classList.add('chat-show')
+    }
 }
