@@ -1,7 +1,7 @@
 # Web App Messenger
 
 This is client part of fullstack web app (ASP.NET + MSSQL + SignalR for API, React + TypeScript + Zustand + BootStrap for Client app)  
-Click the [link](https://messenger-brown.vercel.app/) to see website
+Click the [link](https://messenger-brown.vercel.app/) to see website (API HOSTING EXPIRED)
 
 # Login
 ![image](https://github.com/jetie000/WebAppMessenger/assets/126812090/27b54040-0d65-428c-9dcb-5a708603d17e)
